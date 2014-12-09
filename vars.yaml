@@ -1,0 +1,6 @@
+iso_url: http://cdimage.debian.org/cdimage/jessie_di_beta_2/amd64/iso-cd/debian-jessie-DI-b2-amd64-CD-1.iso
+iso_checksum: 594d47b738b6ed591883ed285a6a35f8485760d2
+#iso_url: http://cdimage.debian.org/cdimage/jessie_di_beta_2/amd64/iso-cd/debian-jessie-DI-b2-amd64-netinst.iso
+#iso_checksum: cdbcc27572433c247610d32cfdcedbbf70311d1c
+iso_checksum_type: sha1
+mirror: ftp.uk.debian.org

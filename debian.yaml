@@ -1,0 +1,78 @@
+variables:
+  version: "0.1.0"
+  headless: ""
+  update: "false"
+  http_proxy: "{{env `http_proxy`}}"
+  https_proxy: "{{env `https_proxy`}}"
+  ftp_proxy: "{{env `ftp_proxy`}}"
+  iso_url: null
+  iso_checksum: null
+  iso_checksum_type: null
+  mirror: http.us.debian.org
+
+_macros:
+- &common
+  vm_name: debian77
+  http_directory: http
+  iso_url: "{{user `iso_url`}}"
+  iso_checksum: "{{user `iso_checksum`}}"
+  iso_checksum_type: "{{user `iso_checksum_type`}}"
+  headless: "{{ user `headless` }}"
+  output_directory: box/{{.Provider}}/out
+  ssh_username: "vagrant"
+  ssh_password: "vagrant"
+  ssh_wait_timeout: "10000s"
+  boot_command:
+    - "<esc><wait>"
+    - "/install.amd/vmlinuz vga=788 initrd=/install.amd/initrd.gz"
+    - " auto"
+    - " url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg"
+    - " debian-installer=en_GB"
+    - " locale=en_GB"
+    - " keymap=uk"
+    - " netcfg/get_hostname=vagrant"
+    - " netcfg/get_domain=vm"
+    - " mirror/http/hostname={{ user `mirror` }}"
+    - " quiet"
+    - " -- quiet"
+    - "<enter>"
+  shutdown_command: "echo vagrant | sudo -S shutdown -h now"
+  disk_size: 10140
+
+builders:
+- <<: *common
+  type: vmware-iso
+  guest_os_type: debian7-64
+  tools_upload_flavor: linux
+  vmx_data:
+    memsize: "1024"
+    numvcpus: "1"
+
+- <<: *common
+  type: "virtualbox-iso"
+  guest_additions_path: "VBoxGuestAdditions_{{.Version}}.iso"
+  virtualbox_version_file: .vbox_version
+  vboxmanage:
+    - ["modifyvm", "{{.Name}}", "--memory", "512"]
+    - ["modifyvm", "{{.Name}}", "--cpus", "1"]
+
+provisioners:
+  - type: shell
+    environment_vars:
+      - "UPDATE={{user `update`}}"
+      - "http_proxy={{user `http_proxy`}}"
+      - "https_proxy={{user `https_proxy`}}"
+      - "ftp_proxy={{user `ftp_proxy`}}"
+    execute_command: "echo vagrant | {{.Vars}} sudo -E -S bash '{{.Path}}'"
+    scripts:
+      - "script/base.sh"
+      - "script/update.sh"
+      - "script/vagrant.sh"
+      - "script/vmtool.sh"
+      - "script/minimize.sh"
+      - "script/cleanup.sh"
+
+post-processors:
+  - type: vagrant
+    keep_input_artifact: true
+    output: "box/{{.Provider}}/debian.box"
