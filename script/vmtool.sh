@@ -10,6 +10,7 @@ if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
     /tmp/vmware-tools-distrib/vmware-install.pl -d
     umount /media/cdrom0
     rm -rf /tmp/VMwareTools-*
+    rm linux.iso
 fi
 
 if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then

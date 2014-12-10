@@ -20,6 +20,8 @@ $(TARGET)/%.json: %.yaml | $(TARGET)
 		< $< > $@
 
 $(TARGET)/$(NAME).box: $(JSON)
+	PACKER_LOG=y \
+	PACKER_LOG_PATH=$(TARGET)/$(NAME).log \
 	packer build \
 	  -only=vmware-iso \
 	  -var-file=$(TARGET)/vars.json \
