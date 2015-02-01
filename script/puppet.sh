@@ -1,8 +1,7 @@
 #!/bin/bash -eux
 
 echo "==> Installing Puppet"
-. /etc/lsb-release
-
+DISTRIB_CODENAME=wheezy
 DEB_NAME=puppetlabs-release-${DISTRIB_CODENAME}.deb
 wget http://apt.puppetlabs.com/${DEB_NAME}
 dpkg -i ${DEB_NAME}

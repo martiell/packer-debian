@@ -2,14 +2,14 @@ variables:
   version: "0.1.0"
   headless: ""
   update: "false"
+  proxy: ""
   http_proxy: "{{env `http_proxy`}}"
   https_proxy: "{{env `https_proxy`}}"
   ftp_proxy: "{{env `ftp_proxy`}}"
   iso_url: null
   iso_checksum: null
   iso_checksum_type: null
-  proxy: ""
-  mirror: http.us.debian.org
+  mirror: ftp.debian.org
 
 _macros:
 - &common
@@ -33,7 +33,6 @@ _macros:
     - " netcfg/get_hostname=vagrant"
     - " netcfg/get_domain=vm"
     - " mirror/http/hostname={{ user `mirror` }}"
-    - " mirror/http/proxy={{ user `proxy` }}"
     - " quiet"
     - " -- quiet"
     - "<enter>"
@@ -68,10 +67,11 @@ provisioners:
       - "ftp_proxy={{user `ftp_proxy`}}"
     execute_command: "echo vagrant | {{.Vars}} sudo -E -S bash '{{.Path}}'"
     scripts:
-      - "script/forgetcd.sh"
       - "script/vagrant.sh"
+      - "script/forgetcd.sh"
       - "script/vmtool.sh"
       - "script/update.sh"
+      - "script/puppet.sh"
       - "script/minimize.sh"
       - "script/zerodisk.sh"
 

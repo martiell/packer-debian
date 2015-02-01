@@ -1,6 +1,4 @@
 #!/bin/bash -eux
-echo "***"
-find /var/cache/apt/archives
 
 # Remove some packages to get a minimal install
 echo "==> Removing all linux kernels except the currrent one"
