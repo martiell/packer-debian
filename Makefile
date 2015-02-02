@@ -12,8 +12,10 @@ install: $(BOX)
 
 $(TARGET):
 	mkdir -p $(TARGET)
+http:
+	mkdir -p http
 
-$(PRESEED): preseed.cfg
+$(PRESEED): preseed.cfg | http
 	@printf "%-12s --> %s\n" "$<" "$@"
 	@ruby -e "require 'yaml'; \
 		m = YAML.load(File.new('vars.yaml')) ;\
