@@ -15,12 +15,13 @@ $(TARGET):
 http:
 	mkdir -p http
 
-$(PRESEED): preseed.cfg | http
+$(PRESEED): preseed.cfg vars.yaml | http
 	@printf "%-12s --> %s\n" "$<" "$@"
-	@ruby -e "require 'yaml'; \
+	@ruby -e "require 'yaml'; require 'erb'; require 'ostruct'; \
 		m = YAML.load(File.new('vars.yaml')) ;\
 	        s = Hash[m.map{ |k,v| [k.to_sym,v] }]; \
-		puts STDIN.read % s" \
+	        class A < OpenStruct; def render(t) ERB.new(t).result(binding); end; end; \
+	        puts A.new(s).render(STDIN.read)" \
 		< $< > $@
 
 $(TARGET)/%.json: %.yaml | $(TARGET)
