@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/bin/sh -eux
 
-echo "==> Disabling CDROM entries to avoid prompts to insert a disk"
-sed -i "/^deb cdrom:/s/^/#/" /etc/apt/sources.list
+echo "==> Removing CD-ROM entries from sources.list."
+sed -i "/deb cdrom:/,+1d" /etc/apt/sources.list

@@ -1,32 +1,28 @@
 #!/bin/bash -eux
 
+UNINSTALL="apt-get -y --purge --auto-remove remove"
 # Remove some packages to get a minimal install
 echo "==> Removing all linux kernels except the currrent one"
 dpkg-query -f '${package}\n' -W 'linux-image-*' | \
   grep -v linux-image-$(uname -r)\$ | \
-  xargs apt-get -y purge
+  xargs $UNINSTALL
 
 echo "==> Removing linux headers"
 dpkg-query -f '${package}\n' -W 'linux-headers-*' | \
-  xargs apt-get -y purge
-
-apt-get -y autoremove --purge
+  xargs $UNINSTALL
 
 echo "==> Removing development tools"
-apt-get -y purge build-essential
-apt-get -y autoremove --purge
+$UNINSTALL build-essential
 
-# Clean up the apt cache
-apt-get -y autoremove --purge
+echo "==> Clearing APT cache"
 apt-get -y clean
 
-# Clean up orphaned packages with deborphan
+echo "Clean up orphaned packages with deborphan"
 apt-get -y install deborphan
 while [ -n "$(deborphan --guess-all --libdevel)" ]; do
     deborphan --guess-all --libdevel | xargs apt-get -y purge
 done
-apt-get -y purge deborphan dialog
-apt-get -y autoremove --purge
+$UNINSTALL deborphan dialog
 
 echo "==> Removing APT lists"
 find /var/lib/apt -depth -name extended_states -prune -o -type f -delete
