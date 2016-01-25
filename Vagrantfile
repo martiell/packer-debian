@@ -3,12 +3,12 @@
 
 Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "debian"
+  config.vm.box = "debian-vmware"
   config.vm.box_check_update = false
-  config.vm.define "debtest" do |debtest|
-  end
+  config.vm.synced_folder ".", "/vagrant"
   config.vm.provider "vmware_fusion" do |v|
-    v.vmx["displayname"] = "debian-test"
+    v.gui = true
+    v.vmx["displayname"] = "Debian"
   end
 
   # config.vm.network "forwarded_port", guest: 80, host: 8080

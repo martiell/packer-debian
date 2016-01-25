@@ -9,7 +9,7 @@ json: $(JSON)
 vmware: $(OUT)/vmware/$(NAME).box
 virtualbox: $(OUT)/virtualbox/$(NAME).box
 
-install-%: $(OUT)/%/$(NAME).box
+%-install: $(OUT)/%/$(NAME).box
 	vagrant box add --force $(NAME)-$* $<
 
 $(OUT):

@@ -12,7 +12,7 @@ variables:
 
 _macros:
 - &common
-  vm_name: debian77
+  vm_name: debian
   http_directory: http
   iso_url: "{{user `iso_url`}}"
   iso_checksum: "{{user `iso_checksum`}}"
@@ -26,14 +26,15 @@ _macros:
     - "/install.amd/vmlinuz vga=788 initrd=/install.amd/initrd.gz"
     - " auto"
     - " url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg"
-    - " debian-installer=en_GB"
-    - " locale=en_GB"
+    - " language=en"
+    - " country=GB"
     - " keymap=gb"
     - " netcfg/get_hostname=vagrant"
     - " netcfg/get_domain=vm"
     - " mirror/http/hostname={{ user `mirror` }}"
     - " quiet"
-    - " -- quiet"
+    - " ---"
+    - " quiet"
     - "<enter>"
   shutdown_command: "echo vagrant | sudo -S shutdown -P now"
   disk_size: 10140
@@ -41,7 +42,7 @@ _macros:
 builders:
 - <<: *common
   type: vmware-iso
-  guest_os_type: debian7-64
+  guest_os_type: debian8-64
   tools_upload_flavor: linux
   output_directory: box/vmware/out
   vmx_data:
