@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+export DEBIAN_FRONTEND=noninteractive
+
 if [ $PACKER_BUILDER_TYPE = vmware-iso ]; then
     echo "# Installing VMware Tools"
     rm -f linux.iso

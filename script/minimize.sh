@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+export DEBIAN_FRONTEND=noninteractive
 UNINSTALL="apt-get -y --purge --auto-remove remove"
 
 echo "# Removing all linux kernels except the currrent one"
