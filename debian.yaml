@@ -7,7 +7,7 @@ variables:
   language: en
   country: GB
   keymap: gb
-  headless: ""
+  headless: "true"
   mirror: ftp.debian.org
   no_dkms: ""
   proxy: ""
