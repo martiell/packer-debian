@@ -1,5 +1,6 @@
-#!/bin/sh -eux
+#!/bin/sh
 # Installs Puppet from the Puppet Labs repository.
+set -e
 
 if [ -z "$PUPPET" ]; then
   exit 0

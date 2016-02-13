@@ -1,4 +1,5 @@
-#!/bin/bash -eux
+#!/bin/sh
+set -e
 
 UNINSTALL="apt-get -y --purge --auto-remove remove"
 

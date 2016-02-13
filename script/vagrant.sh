@@ -1,4 +1,5 @@
-#!/bin/sh -eux
+#!/bin/sh
+set -e
 
 VAGRANT_USER=${VAGRANT_USER:-vagrant}
 VAGRANT_HOME=${VAGRANT_HOME:-/home/${VAGRANT_USER}}

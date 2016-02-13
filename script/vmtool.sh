@@ -1,6 +1,7 @@
-#!/bin/sh -eux
+#!/bin/sh
+set -e
 
-if [[ $PACKER_BUILDER_TYPE = vmware-iso ]]; then
+if [ $PACKER_BUILDER_TYPE = vmware-iso ]; then
     echo "# Installing VMware Tools"
     rm -f linux.iso
     apt-get install -y \
@@ -11,7 +12,7 @@ if [[ $PACKER_BUILDER_TYPE = vmware-iso ]]; then
     mkdir /mnt/hgfs
 fi
 
-if [[ $PACKER_BUILDER_TYPE = virtualbox-iso ]]; then
+if [ $PACKER_BUILDER_TYPE = virtualbox-iso ]; then
     echo "# Installing VirtualBox guest additions"
     apt-get install -y \
       dkms \

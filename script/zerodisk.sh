@@ -1,11 +1,12 @@
-#!/bin/sh -eux
+#!/bin/sh
+set -e
 
 zero() {
   local file="$1"
   local dir=$(dirname "$file")
   local count
   count=$(df --sync -kP "$dir" | awk -F ' ' '{if (NR==2) print $4}')
-  let count--
+  count=$(( count - 1 ))
   dd if=/dev/zero of="$file" bs=1024 count=$count
   rm "$file"
 }

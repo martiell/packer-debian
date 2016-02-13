@@ -70,7 +70,7 @@ provisioners:
       - "ftp_proxy={{user `ftp_proxy`}}"
       - "NO_DKMS={{user `no_dkms`}}"
       - "PUPPET={{user `puppet`}}"
-    execute_command: "echo vagrant | {{.Vars}} sudo -E -S bash '{{.Path}}'"
+    execute_command: "chmod +x {{.Path}}; echo vagrant | {{.Vars}} sudo -ES '{{.Path}}'"
     scripts:
       - "script/vagrant.sh"
       - "script/forgetcd.sh"
