@@ -29,7 +29,7 @@ echo "# Cleaning up leftover dhcp leases"
 rm -f /var/lib/dhcp/*
 
 echo "# Cleaning up tmp"
-rm -rf /tmp/*
+find /tmp -mindepth 1 -xdev -delete
 
 # Clean up log files
 find /var/log
