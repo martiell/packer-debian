@@ -4,6 +4,9 @@ variables:
   iso_checksum: 070db3644c39374fdc87fd3de51388dcc0e05b866eaf37f2193d1818f0128e938c42e4eb9f1de555741c143a51edee07903a33271fca2696a771e4ae5c868277
   iso_checksum_type: sha512
   locale: C.UTF-8
+  language: en
+  country: GB
+  keymap: gb
   headless: ""
   mirror: ftp.debian.org
   no_dkms: ""
@@ -29,10 +32,10 @@ _macros:
     - "/install.amd/vmlinuz vga=788 initrd=/install.amd/initrd.gz"
     - " auto"
     - " url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg"
-    - " language=en"
-    - " country=GB"
-    - " keymap=gb"
     - " locale={{ user `locale` }}"
+    - " language={{ user `language` }}"
+    - " country={{ user `country` }}"
+    - " keymap={{ user `keymap` }}"
     - " netcfg/get_hostname=vagrant"
     - " netcfg/get_domain=vm"
     - " mirror/http/hostname={{ user `mirror` }}"
