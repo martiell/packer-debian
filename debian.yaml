@@ -1,14 +1,15 @@
 variables:
-  version: "0.1.0"
+  version: "8.3.0"
+  iso_url: http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso
+  iso_checksum: 070db3644c39374fdc87fd3de51388dcc0e05b866eaf37f2193d1818f0128e938c42e4eb9f1de555741c143a51edee07903a33271fca2696a771e4ae5c868277
+  iso_checksum_type: sha512
   headless: ""
+  mirror: ftp.debian.org
   proxy: ""
   http_proxy: "{{env `http_proxy`}}"
   https_proxy: "{{env `https_proxy`}}"
   ftp_proxy: "{{env `ftp_proxy`}}"
-  iso_url: null
-  iso_checksum: null
-  iso_checksum_type: null
-  mirror: ftp.debian.org
+  puppet: no
 
 _macros:
 - &common
