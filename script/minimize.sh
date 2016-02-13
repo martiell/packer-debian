@@ -7,8 +7,9 @@ dpkg-query -f '${package}\n' -W 'linux-image-*' | \
   grep -v linux-image-$(uname -r)\$ | \
   xargs $UNINSTALL
 
-echo "# Removing linux headers"
+echo "# Removing all linux headers except the currrent one"
 dpkg-query -f '${package}\n' -W 'linux-headers-*' | \
+  grep -v linux-headers-$(uname -r) | \
   xargs $UNINSTALL
 
 echo "# Clean up orphaned packages with deborphan"
