@@ -76,6 +76,7 @@ provisioners:
       - "script/forgetcd.sh"
       - "script/vmtool.sh"
       - "script/puppet.sh"
+      - "script/grub.sh"
       - "script/minimize.sh"
       - "script/zerodisk.sh"
 
